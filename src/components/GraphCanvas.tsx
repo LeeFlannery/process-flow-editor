@@ -4,6 +4,7 @@ import {
   Background,
   Controls,
   type ReactFlowInstance,
+  type OnSelectionChangeParams,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { useGraphStore, type FlowNode } from '../store/graphStore'
@@ -33,6 +34,10 @@ export function GraphCanvas() {
 
   const rfInstance = useRef<ReactFlowInstance<FlowNode> | null>(null)
 
+  const onSelectionChange = useCallback(({ nodes: selected }: OnSelectionChangeParams) => {
+    setSelectedNode(selected.length === 1 ? selected[0].id : null)
+  }, [setSelectedNode])
+
   const onDragOver = useCallback((event: React.DragEvent) => {
     event.preventDefault()
     event.dataTransfer.dropEffect = 'move'
@@ -59,8 +64,7 @@ export function GraphCanvas() {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         onInit={(instance) => { rfInstance.current = instance }}
-        onNodeClick={(_, node) => setSelectedNode(node.id)}
-        onPaneClick={() => setSelectedNode(null)}
+        onSelectionChange={onSelectionChange}
         fitView
         className="bg-default-50"
       >
