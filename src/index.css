@@ -1,2 +1,10 @@
 @import "tailwindcss";
 @import "@heroui/styles/css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@variant dark {
+  .react-flow__background {
+    background-color: #0f172a;
+  }
+}

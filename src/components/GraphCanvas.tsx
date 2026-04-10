@@ -8,6 +8,7 @@ import {
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { useGraphStore, type FlowNode } from '../store/graphStore'
+import { useTheme } from '../context/ThemeContext'
 import { MaterialNode } from './nodes/MaterialNode'
 import { ProcessNode } from './nodes/ProcessNode'
 import { InspectionNode } from './nodes/InspectionNode'
@@ -32,6 +33,7 @@ export function GraphCanvas() {
     setSelectedNode,
   } = useGraphStore()
 
+  const { dark } = useTheme()
   const rfInstance = useRef<ReactFlowInstance<FlowNode> | null>(null)
 
   const onSelectionChange = useCallback(({ nodes: selected }: OnSelectionChangeParams) => {
@@ -66,9 +68,9 @@ export function GraphCanvas() {
         onInit={(instance) => { rfInstance.current = instance }}
         onSelectionChange={onSelectionChange}
         fitView
-        className="bg-default-50"
+        colorMode={dark ? 'dark' : 'light'}
       >
-        <Background />
+        <Background color={dark ? '#1e293b' : '#94a3b8'} />
         <Controls />
       </ReactFlow>
     </div>

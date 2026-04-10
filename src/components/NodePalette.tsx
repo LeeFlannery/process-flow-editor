@@ -65,20 +65,24 @@ function onDragStart(event: React.DragEvent, nodeType: NodeType) {
 
 export function NodePalette() {
   return (
-    <aside className="w-[200px] shrink-0 border-r border-default-200 bg-default-50 flex flex-col gap-2 p-3 overflow-y-auto">
-      <p className="text-xs font-semibold text-default-500 uppercase tracking-wider mb-1">Node Types</p>
+    <aside className="w-[200px] shrink-0 border-r border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 flex flex-col gap-2 p-3 overflow-y-auto">
+      <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+        Node Types
+      </p>
       {PALETTE_ITEMS.map((item) => (
         <div
           key={item.type}
           draggable
           onDragStart={(e) => onDragStart(e, item.type)}
-          className="rounded-xl border border-default-200 bg-white shadow-sm cursor-grab active:cursor-grabbing select-none hover:shadow-md transition-shadow overflow-hidden"
+          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm cursor-grab active:cursor-grabbing select-none hover:shadow-md transition-shadow overflow-hidden"
         >
           <div className={`${item.color} px-3 py-2 flex items-center gap-2 text-white`}>
             {item.icon}
             <span className="font-semibold text-sm">{item.label}</span>
           </div>
-          <p className="text-xs text-default-500 px-3 py-2 leading-snug">{item.description}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 px-3 py-2 leading-snug">
+            {item.description}
+          </p>
         </div>
       ))}
     </aside>
